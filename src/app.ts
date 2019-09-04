@@ -4,7 +4,7 @@ import { createStore } from './store'
 import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
-
+import './util/class-components-augumentation'
 // mixin for handling title
 Vue.mixin(titleMixin)
 

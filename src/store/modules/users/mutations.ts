@@ -9,5 +9,8 @@ export default <MutationTree<UserState>> {
   USERS_ERROR (state) {
     state.error = true;
     state.users = undefined;
+  },
+  REVERSE_USERS_LIST (state) {
+    state.users.reverse();
   }
 };

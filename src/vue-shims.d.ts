@@ -2,24 +2,15 @@ declare module "*.vue" {
   import Vue, { ComponentOptions } from "vue";
   import { Store } from "vuex";
   import { Route } from 'vue-router';
-
   export interface AsyncDataContext {
     store?: Store<any>,
     route?: Route
   }
   module "vue/types/options" {
-      interface ComponentOptions<V extends Vue> {
-        asyncData?: (context: AsyncDataContext) => Promise<any>;
-        title?: string
-      }
-  }
-
-
-  module "vue/types/vue" {
-      interface Vue {
-          asyncData?: (store: Store<any>, route: Route) => Promise<any>;
-          title?: string
-      }
+    interface ComponentOptions<V extends Vue> {
+      asyncData?: (context: AsyncDataContext) => Promise<any>;
+      title?: string
+    }
   }
   export default Vue
 }

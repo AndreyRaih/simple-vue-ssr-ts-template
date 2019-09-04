@@ -1,8 +1,4 @@
-# VueJS + Vuex + SSR + CSS/Stylus Modules + TypeScript boilerplate
-
-### ROADMAP
-
-- FIX some troubles with prefetch data in vuex
+# VueJS + Vuex + SSR + CSS/Stylus Modules + TypeScript template
 
 Base template and some ideas of realisation HMR in SSR & TypeScript enviroment: https://github.com/kevguy/vue-hackernews-2.0-typescript
 Thank you!
@@ -19,6 +15,41 @@ It includes:
 
 It helps to user to receive content faster. Also, it improves SEO.
 You can read official docs, if you need use SSR: https://ssr.vuejs.org/
+
+### Extented vue-property-decorators with asyncData hooks, title and etc
+
+In this template, you have some fixes with prefetch features in components, which worked with troubles in Vue + Vuex + TypeScript realizations without Nuxt.js.
+
+You have extensions in `vue-shims.d.ts` file:
+
+```
+declare module "*.vue" {
+  import Vue, { ComponentOptions } from "vue";
+  import { Store } from "vuex";
+  import { Route } from 'vue-router';
+  export interface AsyncDataContext {
+    store?: Store<any>,
+    route?: Route
+  }
+  module "vue/types/options" {
+    interface ComponentOptions<V extends Vue> {
+      asyncData?: (context: AsyncDataContext) => Promise<any>;
+      title?: string
+    }
+  }
+  export default Vue
+}
+```
+
+And register new hooks in `utils/class-components-augumentation.ts`:
+
+```
+Component.registerHooks([
+  'asyncData',
+  'beforeRouteUpdate'
+]);
+```
+
 
 ### Single page application
 

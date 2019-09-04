@@ -5,7 +5,7 @@ import mutations from './mutations';
 import { UserState } from './types';
 import { State } from '../../types';
 
-export const state: UserState = {
+const state: UserState =  {
   users: [],
   error: false
 };

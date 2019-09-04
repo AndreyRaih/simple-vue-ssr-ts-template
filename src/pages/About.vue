@@ -1,8 +1,7 @@
 <template>
   <div :class="$style.about">
     <h1>This is VueJS + SSR + TS + CSS/Stylus Modules template</h1>
-    <h2>Simplify :)</h2>
-    <a :class="$style.link" @click="$router.back()">Back</a>
+    <a :class="$style.link" @click="$router.back()">Go back</a>
   </div>
 </template>
 
@@ -10,9 +9,10 @@
 .about {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  height: calc(100vh - 110px);
 }
 .link {
   color: #41b883;

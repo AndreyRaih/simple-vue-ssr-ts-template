@@ -4,7 +4,7 @@ import { UserState, User } from './types';
 
 export default <ActionTree<UserState, any>> {
   fetchData({ commit }): any {
-    axios.get('https://jsonplaceholder.typicode.com/users').then((response) => {
+    return axios.get('https://jsonplaceholder.typicode.com/users').then((response) => {
       const payload: User[] = response.data.map((userObj: User) => <User>{
         email: userObj.email,
         id: userObj.id,
@@ -18,5 +18,8 @@ export default <ActionTree<UserState, any>> {
       console.log(error);
       commit('USERS_ERROR');
     });
+  },
+  changeUserNameInGetter({ commit }): void {
+    commit('REVERSE_USERS_LIST')
   }
 };

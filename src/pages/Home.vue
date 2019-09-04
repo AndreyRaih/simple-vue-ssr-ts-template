@@ -2,7 +2,7 @@
   <div :class="$style.home">
     <img alt="Vue logo" src="../public/logo.png">
     <Greeting :count="visitCounter" />
-    <a :class="$style.link" @click="$router.push('about')">About page</a>
+    <a :class="$style.link" @click="$router.push('about')">Go to About page</a>
   </div>
 </template>
 
@@ -10,9 +10,10 @@
 .home {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  height: calc(100vh - 110px);
 }
 
 .link {
@@ -31,33 +32,31 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
-export default Vue.extend({
-  title: 'test',
+@Component({
+  title: 'Home Page App',
+  async asyncData ({ store }) {
+    // This code run only at server
+    await store.dispatch('users/fetchData');
+  },
   components: {
     Greeting: () => import('../components/Greeting.vue')
-  },
-  asyncData ({ store }) {
-    return store.dispatch('users/fetchData');
-  },
-  data () {
-    return {
-      visitCounter: null
-    }
-  },
-  methods: {
-    updateVisitData () {
-      if (localStorage.getItem('visit')) {
-        const savedValue = localStorage.getItem('visit');
-        this.visitCounter = savedValue ? parseInt(savedValue) : 0;
-      }
-      const visit = this.visitCounter + 1;
-      localStorage.setItem('visit', visit.toString());
-    }
-  },
-  mounted () {
-    this.updateVisitData();
   }
 })
-
+export default class Home extends Vue {
+  visitCounter: number | null = null;
+  updateVisitData () {
+    if (localStorage.getItem('visit')) {
+      const savedValue = localStorage.getItem('visit');
+      this.visitCounter = savedValue ? parseInt(savedValue) : 0;
+    }
+    const visit = this.visitCounter + 1;
+    localStorage.setItem('visit', visit.toString());
+  }
+  mounted () {
+    // This code run only at client
+    this.updateVisitData();
+  }
+};
 </script>

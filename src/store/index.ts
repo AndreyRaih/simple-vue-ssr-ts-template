@@ -8,10 +8,10 @@ Vue.use(Vuex);
 
 export function createStore (): Store<State> {
   return new Vuex.Store({
-    state: {
+    state: () => ({
       firstName: 'Simon',
       lastName: 'Nomis'
-    },
+    }),
     modules: {
       users
     }

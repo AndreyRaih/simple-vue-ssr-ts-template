@@ -3,10 +3,13 @@
     <div :class="$style.greeting">
       <h1>{{greetingStr}}</h1>
     </div>
+    <div :class="$style.visits">It's your {{count}} visit</div>
     <div :class="$style.users">
       {{usersStr}}
+      <div>
+        <a :class="$style.link" @click="changeUserNameInGetter()">Change user name</a>
+      </div>
     </div>
-    <div :class="$style.visits">It's your {{count}} visit</div>
   </div>
 </template>
 
@@ -18,8 +21,9 @@
   align-items: center
   flex-wrap: nowrap
 
-.greeting, .users, .visits
-  margin: 4px;
+.users, .visits
+  text-align: center;
+  margin: 8px
 
 .link
   color: #41b883;
@@ -41,6 +45,7 @@ import { State, Action, Getter } from "vuex-class";
 import users from '../store/modules/users'
 const namespace: string = "users";
 
+// Vue decorator
 @Component({
   props: {
     count: {
@@ -49,13 +54,13 @@ const namespace: string = "users";
   }
 })
 export default class HelloView extends Vue {
+  // Vuex decorators
   @State('firstName') firstName: any;
   @State('lastName') lastName: any;
   @Getter('usersCountStr', { namespace }) usersStr: string;
-
+  @Action('changeUserNameInGetter', { namespace }) changeUserNameInGetter: any
   get greetingStr(): string {
     return `Hello, ${this.firstName} ${this.lastName}!`
   }
-
 }
 </script>
